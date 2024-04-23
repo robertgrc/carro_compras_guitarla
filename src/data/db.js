@@ -10,7 +10,7 @@ export const db = [
       id: 2,
       name: 'SRV',
       image: 'guitarra_02',
-      description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+      description: 'Dual stock augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
       price: 349,
   },
   {
