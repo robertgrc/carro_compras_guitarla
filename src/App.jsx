@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Guitar from "./components/Guitar"
 import Header from "./components/Header"
 import { db } from "./data/db"
@@ -9,6 +9,11 @@ const [cart, setCart] = useState([])
 
 const MaxNumberItems = 7
 const MinNumberItems = 1
+
+useEffect(() => {
+  localStorage.setItem('cart', JSON.stringify(cart))
+}, [cart])
+
 
 function addToCart(item){
   const itemExists = cart.findIndex((guitar)=>guitar.id===item.id)
@@ -62,6 +67,7 @@ function clearCart(){
   console.log('Vaciando el Carrito')
   setCart([])
 }
+
 
   return (
     <>
