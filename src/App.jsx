@@ -7,6 +7,22 @@ function App() {
 const [data , setData ] = useState(db)
 const [cart, setCart] = useState([])
 
+
+function addToCart(item){
+  const itemExists = cart.findIndex((guitar)=>guitar.id===item.id)
+  console.log('itemExists',itemExists)
+ if( itemExists>=0){
+  console.log('ya Existe ... incrementando su valor')
+  const updatedCart = [...cart]
+  updatedCart[itemExists].quantity++
+  setCart(updatedCart)
+ } else {
+  item.quantity = 1
+  setCart([...cart, item])
+ }
+
+}
+
   return (
     <>
     <Header />
@@ -17,8 +33,7 @@ const [cart, setCart] = useState([])
             <Guitar 
               guitar = {guitar}
               key={guitar.id}
-              setCart={setCart}
-              cart={cart}
+              addToCart={addToCart}
             />
            )
           )}
