@@ -58,6 +58,11 @@ function decreaseQuantity(id){
   setCart(updatedCart)
 }
 
+function clearCart(){
+  console.log('Vaciando el Carrito')
+  setCart([])
+}
+
   return (
     <>
     <Header 
@@ -65,6 +70,7 @@ function decreaseQuantity(id){
       removeFormCart={removeFormCart}
       increaseQuantity={increaseQuantity}
       decreaseQuantity={decreaseQuantity}
+      clearCart={clearCart}
     />
     <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
