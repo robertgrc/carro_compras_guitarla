@@ -1,8 +1,8 @@
+import { useMemo } from "react"
 
-
-export default function Header({cart}){
+export default function Header({cart, removeFormCart,increaseQuantity }){
     //State Derivado
-    const isEmpty = () => cart.length===0
+    const isEmpty = useMemo(() => cart.length===0, [cart])
     const cartTotalPagar = cart.reduce((total, item)=>total+(item.quantity*item.price),0)
 
     return(
@@ -21,7 +21,7 @@ export default function Header({cart}){
                         <img className="img-fluid" src="./public/img/carrito.png" alt="imagen carrito" />
 
                         <div id="carrito" className="bg-white p-3">
-                            {isEmpty()? (
+                            {isEmpty? (
                                 <p className="text-center">El carrito esta vacio</p>
                             ):(
                              <>
@@ -56,6 +56,7 @@ export default function Header({cart}){
                                             <button
                                                 type="button"
                                                 className="btn btn-dark"
+                                                onClick={()=>increaseQuantity(guitar.id)}
                                             >
                                                 +
                                             </button>
@@ -64,6 +65,7 @@ export default function Header({cart}){
                                             <button
                                                 className="btn btn-danger"
                                                 type="button"
+                                                onClick={()=>removeFormCart(guitar.id)}
                                             >
                                                 X
                                             </button>
