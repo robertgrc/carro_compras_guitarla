@@ -1,79 +1,11 @@
-import { useEffect, useState } from "react"
+
 import Guitar from "./components/Guitar"
 import Header from "./components/Header"
-import { db } from "./data/db"
+import { useCart } from "./hooks/useCart"
 
 function App() {
 
-const initialCart=()=>{
-  const localStorageCart = localStorage.getItem('cart')
-  return localStorageCart ? JSON.parse(localStorageCart):[]
-}
-
-const [data , setData ] = useState(db)
-const [cart, setCart] = useState(initialCart)
-
-const MaxNumberItems = 7
-const MinNumberItems = 1
-
-useEffect(() => {
-  localStorage.setItem('cart', JSON.stringify(cart))
-}, [cart])
-
-
-function addToCart(item){
-  const itemExists = cart.findIndex((guitar)=>guitar.id===item.id)
-  console.log('itemExists',itemExists)
- if( itemExists>=0){
-  if(cart[itemExists].quantity>=MaxNumberItems)return
-  console.log('ya Existe ... incrementando su valor')
-  const updatedCart = [...cart]
-  updatedCart[itemExists].quantity++
-  setCart(updatedCart)
- } else {
-  item.quantity = 1
-  setCart([...cart, item])
- }
-}
-
-function removeFormCart(id){
-  console.log('eliminando...', id)
-  setCart(prevCart => prevCart.filter(guitar=>guitar.id!==id))
-}
-
-function increaseQuantity(id){
-  console.log('incrementando', id)
-  const updatedCart = cart.map(item=>{
-    if(item.id===id && item.quantity<MaxNumberItems){
-      return{
-        ...item,
-        quantity: item.quantity+1
-      }  
-    }
-    return item
-  })
-  setCart(updatedCart)
-}
-
-function decreaseQuantity(id){
-  console.log('decrementando', id)
-  const updatedCart = cart.map(item=>{
-    if(item.id===id && item.quantity>MinNumberItems){
-      return{
-        ...item,
-        quantity: item.quantity-1
-      }
-    }
-    return item
-  })
-  setCart(updatedCart)
-}
-
-function clearCart(){
-  console.log('Vaciando el Carrito')
-  setCart([])
-}
-
+const{data,cart,addToCart,removeFormCart,increaseQuantity,decreaseQuantity,clearCart,isEmpty,cartTotalPagar} = useCart()
 
   return (
     <>
@@ -83,6 +15,8 @@ function clearCart(){
       increaseQuantity={increaseQuantity}
       decreaseQuantity={decreaseQuantity}
       clearCart={clearCart}
+      isEmpty={isEmpty}
+      cartTotalPagar={cartTotalPagar}
     />
     <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
